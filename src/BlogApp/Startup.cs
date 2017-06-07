@@ -12,6 +12,7 @@ using BlogApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using BlogApp.Data.Models;
+using AutoMapper;
 
 namespace BlogApp
 {
@@ -57,6 +58,9 @@ namespace BlogApp
 
             // Add ApplicationDbContext's DbSeeder 
             services.AddSingleton<DbSeeder>();
+
+            // Add AutoMapper
+            services.AddAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

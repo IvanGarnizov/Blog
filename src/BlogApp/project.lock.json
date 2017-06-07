@@ -3,6 +3,32 @@
   "version": 2,
   "targets": {
     ".NETFramework,Version=v4.6.1": {
+      "AutoMapper/6.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net45/AutoMapper.dll": {}
+        },
+        "runtime": {
+          "lib/net45/AutoMapper.dll": {}
+        }
+      },
+      "AutoMapper.Extensions.Microsoft.DependencyInjection/1.1.2": {
+        "type": "package",
+        "dependencies": {
+          "AutoMapper": "5.0.2",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
+          "Microsoft.Extensions.DependencyModel": "1.0.0"
+        },
+        "frameworkAssemblies": [
+          "System.Runtime"
+        ],
+        "compile": {
+          "lib/net451/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/net451/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+        }
+      },
       "Libuv/1.9.0": {
         "type": "package",
         "dependencies": {
@@ -2187,6 +2213,33 @@
     }
   },
   "libraries": {
+    "AutoMapper/6.0.2": {
+      "sha512": "uI4uPyibgP4+2zn21fVqy0ep+eYeB5IcfjanyUESj+F0qcrOYpAW4iH2+xKET0vfhgJn4U1c4xN3stKUhygTmQ==",
+      "type": "package",
+      "path": "AutoMapper/6.0.2",
+      "files": [
+        "automapper.6.0.2.nupkg.sha512",
+        "automapper.nuspec",
+        "lib/net45/AutoMapper.dll",
+        "lib/net45/AutoMapper.xml",
+        "lib/netstandard1.1/AutoMapper.dll",
+        "lib/netstandard1.1/AutoMapper.xml",
+        "lib/netstandard1.3/AutoMapper.dll",
+        "lib/netstandard1.3/AutoMapper.xml"
+      ]
+    },
+    "AutoMapper.Extensions.Microsoft.DependencyInjection/1.1.2": {
+      "sha512": "bdGt4Xl1dhPFUrD5HAEm+UNlg+MolWsf4F/fxemcDpwss5VUGZC/gkibUTzPAdgQxTGVXX9zy3TdZDOTTK6IbA==",
+      "type": "package",
+      "path": "AutoMapper.Extensions.Microsoft.DependencyInjection/1.1.2",
+      "files": [
+        "AutoMapper.Extensions.Microsoft.DependencyInjection.1.1.2.nupkg.sha512",
+        "AutoMapper.Extensions.Microsoft.DependencyInjection.nuspec",
+        "lib/net451/AutoMapper.Extensions.Microsoft.DependencyInjection.dll",
+        "lib/netstandard1.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll",
+        "lib/netstandard1.6/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
+      ]
+    },
     "Libuv/1.9.0": {
       "sha512": "9Q7AaqtQhS8JDSIvRBt6ODSLWDBI4c8YxNxyCQemWebBFUtBbc6M5Vi5Gz1ZyIUlTW3rZK9bIr5gnVyv0z7a2Q==",
       "type": "package",
@@ -6305,6 +6358,8 @@
   },
   "projectFileDependencyGroups": {
     "": [
+      "AutoMapper >= 6.0.2",
+      "AutoMapper.Extensions.Microsoft.DependencyInjection >= 1.1.2",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 1.0.0",
       "Microsoft.AspNetCore.Diagnostics >= 1.0.0",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 1.0.0",

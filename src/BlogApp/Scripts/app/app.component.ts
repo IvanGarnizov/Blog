@@ -4,8 +4,9 @@
     selector: "blog",
     template:
     `
-        <h1>Blog</h1>
-        <div>... the best is yet to come!</div>
+        <a [routerLink]="['']">Home</a>
+        <a [routerLink]="['about']">About</a>
+        <router-outlet></router-outlet>
     `
 })
 

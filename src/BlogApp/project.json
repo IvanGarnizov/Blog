@@ -20,7 +20,9 @@
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
     "Microsoft.EntityFrameworkCore": "1.0.0",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
-    "Microsoft.EntityFrameworkCore.Design": "1.0.0-preview2-final"
+    "Microsoft.EntityFrameworkCore.Design": "1.0.0-preview2-final",
+    "AutoMapper": "6.0.2",
+    "AutoMapper.Extensions.Microsoft.DependencyInjection": "1.1.2"
   },
 
   "tools": {
