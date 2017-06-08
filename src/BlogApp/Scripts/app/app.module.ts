@@ -8,10 +8,15 @@ import "rxjs/Rx";
 import { AboutComponent } from "./about.component";
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home.component";
-import { PostListComponent } from "./posts/post-list.component";
 import { PostComponent } from "./posts/post.component";
+import { PostListComponent } from "./posts/post-list.component";
+import { TopicComponent } from "./topics/topic.component";
+import { TopicListComponent } from "./topics/topic-list.component";
+
 import { AppRouting } from "./app.routing";
-import { PostService } from "./posts/post.service"
+
+import { PostService } from "./posts/post.service";
+import { TopicService } from "./topics/topic.service";
 
 @NgModule({
     // directives, components, and pipes
@@ -19,8 +24,10 @@ import { PostService } from "./posts/post.service"
         AboutComponent,
         AppComponent,
         HomeComponent,
+        PostComponent,
         PostListComponent,
-        PostComponent
+        TopicComponent,
+        TopicListComponent
     ],
     // modules
     imports: [
@@ -31,7 +38,8 @@ import { PostService } from "./posts/post.service"
     ],
     // providers
     providers: [
-        PostService
+        PostService,
+        TopicService
     ],
     bootstrap: [
         AppComponent

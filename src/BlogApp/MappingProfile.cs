@@ -5,6 +5,7 @@
     using Data.Models;
 
     using ViewModels.Posts;
+    using ViewModels.Topics;
 
     public class MappingProfile : Profile
     {
@@ -15,6 +16,8 @@
                 .ForMember("AuthorName", cfg => cfg.MapFrom(p => p.Author.UserName));
             CreateMap<Comment, CommentViewModel>()
                 .ForMember("AuthorName", cfg => cfg.MapFrom(c => c.Author.UserName));
+            CreateMap<Topic, TopicListViewModel>();
+            CreateMap<Topic, TopicViewModel>();
         }
     }
 }

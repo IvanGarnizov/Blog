@@ -6,7 +6,13 @@ import { PostService } from "./post.service";
 @Component({
     template:
     `
-        <div *ngIf="post">{{post.title}}</div>
+        <div *ngIf="post">
+            <h1>{{post.title}}</h1>
+            {{post.content}}
+            <h2>Comments:</h2>
+            <textarea name="content" placeholder="Content..."></textarea>
+            <button>Add comment</button>
+        </div>
     `
 })
 
