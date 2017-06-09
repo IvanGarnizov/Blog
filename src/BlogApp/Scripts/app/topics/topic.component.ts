@@ -8,9 +8,7 @@ import { TopicService } from "./topic.service";
     `
         <div *ngIf="topic">
             <h1>{{topic.name}}</h1>
-            <ul>
-                <li *ngFor="let post of topic.posts">{{post.title}}</li>
-            </ul>
+            <post-list [posts]="topic.posts"></post-list>
         </div >
     `
 })

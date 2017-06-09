@@ -1,5 +1,4 @@
-﻿import { Component, OnInit } from "@angular/core";
-import { PostService } from "./post.service";
+﻿import { Component, Input } from "@angular/core";
 import { Post } from "./post";
 import { Router } from "@angular/router";
 
@@ -8,20 +7,15 @@ import { Router } from "@angular/router";
     template:
     `
         <ul>
-            <li *ngFor="let post of posts" (click)="select(post.id)">{{post.id}}. {{post.title}}</li>
+            <li *ngFor="let post of posts" (click)="select(post.id)">{{post.title}}</li>
         </ul>
     `
 })
 
 export class PostListComponent {
-    posts: Post[]
+    @Input() posts: Post[]
 
-    constructor(private postService: PostService, private router: Router) { }
-
-    ngOnInit() {
-        this.postService.getMostViewed()
-            .subscribe(posts => this.posts = posts);
-    }
+    constructor(private router: Router) { }
 
     select(id: number) {
         this.router.navigate(["post", id]);
