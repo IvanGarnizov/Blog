@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
 
+    using Comments;
+
     public class PostViewModel
     {
         public int Id { get; set; }

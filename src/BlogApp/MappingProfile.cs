@@ -4,6 +4,7 @@
 
     using Data.Models;
 
+    using ViewModels.Comments;
     using ViewModels.Posts;
     using ViewModels.Topics;
 
@@ -15,7 +16,9 @@
             CreateMap<Post, PostViewModel>()
                 .ForMember("AuthorName", cfg => cfg.MapFrom(p => p.Author.UserName));
             CreateMap<Comment, CommentViewModel>()
-                .ForMember("AuthorName", cfg => cfg.MapFrom(c => c.Author.UserName));
+                .ForMember("AuthorName", cfg => cfg.MapFrom(c => c.Author.UserName))
+                .ForMember("RepliedToAuthorName", cfg => cfg.MapFrom(c => c.RepliedTo.Author.UserName))
+                .ForMember("IsReply", cfg => cfg.MapFrom(c => c.RepliedTo != null));
             CreateMap<Topic, TopicListViewModel>();
             CreateMap<Topic, TopicViewModel>();
         }

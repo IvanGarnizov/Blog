@@ -9,6 +9,7 @@
     using Data.Models;
 
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
 
     using ViewModels.Posts;
 
@@ -34,6 +35,12 @@
         public IActionResult Get(int id)
         {
             var post = context.Posts
+                .Include(p => p.Author)
+                .Include(p => p.Comments)
+                    .ThenInclude(c => c.RepliedTo)
+                        .ThenInclude(c => c.Author)
+                .Include(p => p.Comments)
+                    .ThenInclude(c => c.Author)
                 .First(p => p.Id == id);
             var postModel = mapper.Map<Post, PostViewModel>(post);
 

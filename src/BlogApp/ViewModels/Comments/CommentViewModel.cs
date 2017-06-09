@@ -1,4 +1,4 @@
-﻿namespace BlogApp.ViewModels.Posts
+﻿namespace BlogApp.ViewModels.Comments
 {
     using System;
 
@@ -9,6 +9,10 @@
         public string Content { get; set; }
 
         public string AuthorName { get; set; }
+
+        public string RepliedToAuthorName { get; set; }
+
+        public bool IsReply { get; set; }
 
         public DateTime CreationTime { get; set; }
 

@@ -10,6 +10,7 @@ import { PostService } from "./post.service";
             <h1>{{post.title}}</h1>
             {{post.content}}
             <h2>Comments:</h2>
+            <comment-list [comments]="post.comments"></comment-list>
             <textarea name="content" placeholder="Content..."></textarea>
             <button>Add comment</button>
         </div>

@@ -7,6 +7,7 @@ import "rxjs/Rx";
 
 import { AboutComponent } from "./about.component";
 import { AppComponent } from "./app.component";
+import { CommentListComponent } from "./comments/comment-list.component";
 import { HomeComponent } from "./home.component";
 import { PostComponent } from "./posts/post.component";
 import { PostListComponent } from "./posts/post-list.component";
@@ -23,6 +24,7 @@ import { TopicService } from "./topics/topic.service";
     declarations: [
         AboutComponent,
         AppComponent,
+        CommentListComponent,
         HomeComponent,
         PostComponent,
         PostListComponent,
