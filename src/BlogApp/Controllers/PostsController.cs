@@ -73,5 +73,17 @@
 
             return new JsonResult(newPost.Id);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var post = context.Posts
+                .First(p => p.Id == id);
+
+            context.Posts.Remove(post);
+            context.SaveChanges();
+
+            return Ok();
+        }
     }
 }

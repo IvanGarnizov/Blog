@@ -17,6 +17,11 @@ export class CommentService {
             .map(res => res.json());
     }
 
+    remove(id: number) {
+        return this.http.delete(baseUrl + id)
+            .map(res => res.json());
+    }
+
     private getRequestOptions() {
         return new RequestOptions({
             headers: new Headers({

@@ -7,7 +7,10 @@ import { Router } from "@angular/router";
     template:
     `
         <ul>
-            <li *ngFor="let topic of topics" (click)="select(topic.id)">{{topic.name}}</li>
+            <li *ngFor="let topic of topics">
+                <div (click)="select(topic.id)">{{topic.name}}</div>
+                <button (click)="delete(topic.id)">Delete</button>
+            </li>
         </ul>
         <input type="text" #name placeholder="Name..." />
         <button (click)="add(name.value); name.value = '';">Add topic</button>
@@ -30,6 +33,11 @@ export class TopicListComponent {
 
     add(name: string) {
         this.topicService.add(name)
+            .subscribe(topics => this.topics = topics);
+    }
+
+    delete(id: number) {
+        this.topicService.delete(id)
             .subscribe(topics => this.topics = topics);
     }
 }

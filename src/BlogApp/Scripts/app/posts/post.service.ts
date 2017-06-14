@@ -28,6 +28,10 @@ export class PostService {
             .map(res => res.json());
     }
 
+    remove(id: number) {
+        return this.http.delete(baseUrl + id);
+    }
+
     private getRequestOptions() {
         return new RequestOptions({
             headers: new Headers({

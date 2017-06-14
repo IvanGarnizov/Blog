@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Post } from "./post";
 import { PostService } from "./post.service";
 
@@ -9,6 +9,7 @@ import { PostService } from "./post.service";
         <div *ngIf="post">
             <h1>{{post.title}}</h1>
             {{post.content}}
+            <button (click)="remove()">Delete</button>
             <h2>Comments:</h2>
             <comment-list [comments]="post.comments"></comment-list>
         </div>
@@ -16,14 +17,24 @@ import { PostService } from "./post.service";
 })
 
 export class PostComponent {
-    post: Post
-    
-    constructor(private activatedRoute: ActivatedRoute, private postService: PostService) { }
+    post: Post;
+    id: number;
+
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private postService: PostService,
+        private router: Router
+    ) { }
 
     ngOnInit() {
-        var id = this.activatedRoute.snapshot.params["id"];
+        this.id = this.activatedRoute.snapshot.params["id"];
         
-        this.postService.get(id)
+        this.postService.get(this.id)
             .subscribe(post => this.post = post);
+    }
+
+    remove() {
+        this.postService.remove(this.id)
+            .subscribe(res => this.router.navigate([""]));
     }
 }

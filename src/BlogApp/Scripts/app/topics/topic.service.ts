@@ -26,6 +26,11 @@ export class TopicService {
             .map(res => res.json());
     }
 
+    delete(id: number) {
+        return this.http.delete(baseUrl + id)
+            .map(res => res.json());
+    }
+
     private getRequestOptions() {
         return new RequestOptions({
             headers: new Headers({

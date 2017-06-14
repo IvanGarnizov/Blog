@@ -13,10 +13,11 @@ import { CommentService } from "./comment.service";
                 <h3 *ngIf="comment.isReply">{{comment.authorName}} said to {{comment.repliedToAuthorName}}:</h3>
                 <h3 *ngIf="!comment.isReply">{{comment.authorName}} said:</h3>
                 {{comment.content}}
+                <button (click)="remove(comment.id)">Delete</button>
             </li>
         </ul>
         <textarea #content placeholder="Content..."></textarea>
-        <button (click)="addComment(content.value); content.value = '';">Add comment</button>
+        <button (click)="add(content.value); content.value = '';">Add comment</button>
     `
 })
 
@@ -25,10 +26,15 @@ export class CommentListComponent {
 
     constructor(private activatedRoute: ActivatedRoute, private commentService: CommentService) { }
 
-    addComment(content: string) {
+    add(content: string) {
         var postId = this.activatedRoute.snapshot.params["id"];
 
         this.commentService.add(postId, content)
+            .subscribe(comments => this.comments = comments);
+    }
+
+    remove(id: number) {
+        this.commentService.remove(id)
             .subscribe(comments => this.comments = comments);
     }
 }

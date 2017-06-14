@@ -43,5 +43,22 @@
 
             return new JsonResult(commentModels);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var comment = context.Comments
+                .Include(c => c.Post)
+                    .ThenInclude(p => p.Comments)
+                        .ThenInclude(C => C.Author)
+                .First(c => c.Id == id);
+
+            context.Comments.Remove(comment);
+            context.SaveChanges();
+
+            var commentModels = mapper.Map<IEnumerable<Comment>, IEnumerable<CommentViewModel>>(comment.Post.Comments);
+
+            return new JsonResult(commentModels);
+        }
     }
 }

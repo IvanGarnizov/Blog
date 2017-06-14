@@ -57,5 +57,20 @@
 
             return new JsonResult(topicModels);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var topic = context.Topics
+                .First(t => t.Id == id);
+
+            context.Topics.Remove(topic);
+            context.SaveChanges();
+
+            var topics = context.Topics;
+            var topicModels = mapper.Map<IEnumerable<Topic>, IEnumerable<TopicListViewModel>>(topics);
+
+            return new JsonResult(topicModels);
+        }
     }
 }
