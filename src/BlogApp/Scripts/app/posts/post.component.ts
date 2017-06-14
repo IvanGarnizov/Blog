@@ -11,20 +11,18 @@ import { PostService } from "./post.service";
             {{post.content}}
             <h2>Comments:</h2>
             <comment-list [comments]="post.comments"></comment-list>
-            <textarea name="content" placeholder="Content..."></textarea>
-            <button>Add comment</button>
         </div>
     `
 })
 
 export class PostComponent {
     post: Post
-
+    
     constructor(private activatedRoute: ActivatedRoute, private postService: PostService) { }
 
     ngOnInit() {
         var id = this.activatedRoute.snapshot.params["id"];
-
+        
         this.postService.get(id)
             .subscribe(post => this.post = post);
     }

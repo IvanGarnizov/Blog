@@ -9,6 +9,8 @@ import { Router } from "@angular/router";
         <ul>
             <li *ngFor="let topic of topics" (click)="select(topic.id)">{{topic.name}}</li>
         </ul>
+        <input type="text" #name placeholder="Name..." />
+        <button (click)="add(name.value); name.value = '';">Add topic</button>
     `
 })
 
@@ -24,5 +26,10 @@ export class TopicListComponent {
 
     select(id: number) {
         this.router.navigate(["topics", id]);
+    }
+
+    add(name: string) {
+        this.topicService.add(name)
+            .subscribe(topics => this.topics = topics);
     }
 }

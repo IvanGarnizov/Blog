@@ -5,6 +5,8 @@
 
     using AutoMapper;
 
+    using BindingModels.Topics;
+
     using Data;
     using Data.Models;
 
@@ -38,6 +40,22 @@
             var topicModel = mapper.Map<Topic, TopicViewModel>(topic);
 
             return new JsonResult(topicModel);
+        }
+
+        [HttpPost]
+        public IActionResult Add([FromBody]AddTopicBindingModel model)
+        {
+            var topics = context.Topics;
+
+            topics.Add(new Topic()
+            {
+                Name = model.Name
+            });
+            context.SaveChanges();
+
+            var topicModels = mapper.Map<IEnumerable<Topic>, IEnumerable<TopicListViewModel>>(topics);
+
+            return new JsonResult(topicModels);
         }
     }
 }

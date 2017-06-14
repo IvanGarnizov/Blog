@@ -18,6 +18,6 @@ export class PostListComponent {
     constructor(private router: Router) { }
 
     select(id: number) {
-        this.router.navigate(["post", id]);
+        this.router.navigate(["posts", id]);
     }
 }

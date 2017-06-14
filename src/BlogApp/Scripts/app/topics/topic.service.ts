@@ -1,5 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
-import { Http } from "@angular/http";
+import { Http, RequestOptions, Headers } from "@angular/http";
 
 const baseUrl = "api/topics/";
 
@@ -15,5 +15,22 @@ export class TopicService {
     get(id: number) {
         return this.http.get(baseUrl + id)
             .map(res => res.json());
+    }
+
+    add(name: string) {
+        var topic = {
+            Name: name
+        };
+
+        return this.http.post(baseUrl, topic, this.getRequestOptions())
+            .map(res => res.json());
+    }
+
+    private getRequestOptions() {
+        return new RequestOptions({
+            headers: new Headers({
+                "Content-Type": "application/json"
+            })
+        });
     }
 }

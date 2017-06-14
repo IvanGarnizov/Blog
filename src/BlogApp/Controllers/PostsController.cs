@@ -1,9 +1,12 @@
 ﻿namespace BlogApp.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
     using AutoMapper;
+
+    using BindingModels.Posts;
 
     using Data;
     using Data.Models;
@@ -45,6 +48,30 @@
             var postModel = mapper.Map<Post, PostViewModel>(post);
 
             return new JsonResult(postModel);
+        }
+
+        [HttpPost]
+        public IActionResult Add([FromBody]AddPostBindingModel model)
+        {
+            if (model.TopicId == 0)
+            {
+                model.TopicId = 1;
+            }
+
+            var newPost = new Post()
+            {
+                Title = model.Title,
+                Content = model.Content,
+                CreationTime = DateTime.Now,
+                LastModified = DateTime.Now,
+                AuthorId = context.Users.First(u => u.UserName == "admin").Id,
+                TopicId = model.TopicId
+            };
+
+            context.Posts.Add(newPost);
+            context.SaveChanges();
+
+            return new JsonResult(newPost.Id);
         }
     }
 }

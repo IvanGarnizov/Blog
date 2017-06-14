@@ -1,5 +1,7 @@
 ﻿import { Component, Input } from "@angular/core";
 import { Comment } from "./comment";
+import { ActivatedRoute } from "@angular/router";
+import { CommentService } from "./comment.service";
 
 @Component({
     selector: "comment-list",
@@ -13,9 +15,20 @@ import { Comment } from "./comment";
                 {{comment.content}}
             </li>
         </ul>
+        <textarea #content placeholder="Content..."></textarea>
+        <button (click)="addComment(content.value); content.value = '';">Add comment</button>
     `
 })
 
 export class CommentListComponent {
     @Input() comments: Comment[];
+
+    constructor(private activatedRoute: ActivatedRoute, private commentService: CommentService) { }
+
+    addComment(content: string) {
+        var postId = this.activatedRoute.snapshot.params["id"];
+
+        this.commentService.add(postId, content)
+            .subscribe(comments => this.comments = comments);
+    }
 }
