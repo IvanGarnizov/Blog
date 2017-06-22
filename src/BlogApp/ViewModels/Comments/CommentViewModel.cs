@@ -1,6 +1,7 @@
 ﻿namespace BlogApp.ViewModels.Comments
 {
     using System;
+    using System.Collections.Generic;
 
     public class CommentViewModel
     {
@@ -17,5 +18,7 @@
         public DateTime CreationTime { get; set; }
 
         public DateTime LastModified { get; set; }
+
+        public IEnumerable<CommentViewModel> Replies { get; set; }
     }
 }

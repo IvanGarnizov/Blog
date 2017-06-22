@@ -197,7 +197,6 @@
                     Content = "Well Zlatan played for Juve too actually, and Zidane, Baggio, Platini, Del Piero. But I get your point.",
                     CreationTime = new DateTime(2016, 12, 14, 13, 25, 22),
                     LastModified = new DateTime(2016, 12, 14, 13, 25, 22),
-                    PostId = context.Posts.First(p => p.Title == "Radja Nainggolan strikes to give Roma the edge as Juventus's closest challengers").Id,
                     RepliedToId = context.Comments.First(c => c.Content == "Milan are probably my favourite Italian team, classy and full of history. I want them back in the UCL. Juve never quite had the same level of creativity, with Milan there as always something special or different be it Kaka, Shevchenko or finally Zlatan.").Id,
                     AuthorId = context.Users.First(u => u.UserName == "ico").Id
                 });
@@ -207,9 +206,8 @@
                     Content = "Juve played traditional Italian football whereas with Milan they had exciting players like Van Basten and Gullit to name another 2 who made them play in a different style to traditional italian teams.",
                     CreationTime = new DateTime(2016, 12, 14, 13, 47, 5),
                     LastModified = new DateTime(2016, 12, 14, 13, 47, 5),
-                    PostId = context.Posts.First(p => p.Title == "Radja Nainggolan strikes to give Roma the edge as Juventus's closest challengers").Id,
                     RepliedToId = context.Comments.First(c => c.Content == "Well Zlatan played for Juve too actually, and Zidane, Baggio, Platini, Del Piero. But I get your point.").Id,
-                    AuthorId = context.Users.First(u => u.UserName == "ico").Id
+                    AuthorId = context.Users.First(u => u.UserName == "maria").Id
                 });
                 context.Comments.Add(new Comment()
                 {
@@ -233,7 +231,6 @@
                     Content = "No they are not! And they will will never win! Age and they are resigned to the dump, un photograpable! Get surgery and they are freaks. Meanwhile a disgusting 72 year old Mick Jagger gets a 29 year old girl pregnant and he gets a pat on the back! Madonna breaks down on tour at the imminent loss of her son and she's lost it, Guy Ritch allows Rocco to deal in drugs under his care and the media stay silent. The sexism driven by Conservative, upper class snobs like Piers Morgan is a disgrace.",
                     CreationTime = new DateTime(2016, 12, 15, 18, 37, 15),
                     LastModified = new DateTime(2016, 12, 15, 18, 37, 15),
-                    PostId = context.Posts.First(p => p.Title == "Madonna was right: there are rules if you are a girl").Id,
                     RepliedToId = context.Comments.First(c => c.Content == "I am not a huge Madonna fan, but she was right, women are not allowed to age.").Id,
                     AuthorId = context.Users.First(u => u.UserName == "maria").Id
                 });
@@ -251,7 +248,6 @@
                     Content = "... they would still have been really good.",
                     CreationTime = new DateTime(2016, 12, 8, 15, 19, 18),
                     LastModified = new DateTime(2016, 12, 8, 15, 19, 18),
-                    PostId = context.Posts.First(p => p.Title == "Tromba marina: the instrument that gave Pepys a real buzz").Id,
                     RepliedToId = context.Comments.First(c => c.Content == "If Radiohead had been around in the seventeenth century ...").Id,
                     AuthorId = context.Users.First(u => u.UserName == "maria").Id
                 });
@@ -261,7 +257,6 @@
                     Content = "Yep, I wasn't being snide. I think they'd have made interesting use of this instrument.",
                     CreationTime = new DateTime(2016, 12, 8, 15, 28, 33),
                     LastModified = new DateTime(2016, 12, 8, 15, 28, 33),
-                    PostId = context.Posts.First(p => p.Title == "Tromba marina: the instrument that gave Pepys a real buzz").Id,
                     RepliedToId = context.Comments.First(c => c.Content == "... they would still have been really good.").Id,
                     AuthorId = context.Users.First(u => u.UserName == "ico").Id
                 });
@@ -279,7 +274,6 @@
                     Content = "Yes, that was awful. Like she was holding it the wrong way up or something.",
                     CreationTime = new DateTime(2016, 12, 8, 0, 35, 4),
                     LastModified = new DateTime(2016, 12, 8, 0, 35, 4),
-                    PostId = context.Posts.First(p => p.Title == "Tromba marina: the instrument that gave Pepys a real buzz").Id,
                     RepliedToId = context.Comments.First(c => c.Content == "If the video gives a good representation the sound (a pathetic rasp) in no way matches the visual impressiveness of the instrument. Not surprised it died out.").Id,
                     AuthorId = context.Users.First(u => u.UserName == "ico").Id
                 });

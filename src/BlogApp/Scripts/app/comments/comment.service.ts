@@ -7,10 +7,15 @@ const baseUrl = "api/comments/";
 export class CommentService {
     constructor(private http: Http) { }
 
-    add(postId: number, content: string) {
-        var comment = {
-            PostId: postId,
+    add(id: number, content: string, isReply: boolean) {
+        var comment: any = {
             Content: content
+        };
+
+        if (isReply) {
+            comment.CommentId = id;
+        } else {
+            comment.PostId = id;
         }
 
         return this.http.post(baseUrl, comment, this.getRequestOptions())

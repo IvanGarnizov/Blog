@@ -6,10 +6,12 @@ import { RouterModule } from "@angular/router";
 import "rxjs/Rx";
 
 import { AboutComponent } from "./about.component";
-import { AddPostComponent } from "./posts/add-post.component";
 import { AppComponent } from "./app.component";
+import { CommentAddComponent } from "./comments/comment-add.component";
 import { CommentListComponent } from "./comments/comment-list.component";
+import { CommentReplyComponent } from "./comments/comment-reply.component";
 import { HomeComponent } from "./home.component";
+import { PostAddComponent } from "./posts/post-add.component";
 import { PostComponent } from "./posts/post.component";
 import { PostListComponent } from "./posts/post-list.component";
 import { TopicComponent } from "./topics/topic.component";
@@ -26,10 +28,12 @@ import { TopicService } from "./topics/topic.service";
     // directives, components, and pipes
     declarations: [
         AboutComponent,
-        AddPostComponent,
         AppComponent,
+        CommentAddComponent,
         CommentListComponent,
+        CommentReplyComponent,
         HomeComponent,
+        PostAddComponent,
         PostComponent,
         PostListComponent,
         TopicComponent,

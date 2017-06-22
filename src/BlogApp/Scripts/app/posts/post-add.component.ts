@@ -15,7 +15,7 @@ import { Router } from "@angular/router";
     `
 })
 
-export class AddPostComponent {
+export class PostAddComponent {
     topicId: number;
 
     constructor(private postService: PostService, private router: Router) { }

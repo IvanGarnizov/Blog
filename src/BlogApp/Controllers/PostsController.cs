@@ -40,11 +40,16 @@
             var post = context.Posts
                 .Include(p => p.Author)
                 .Include(p => p.Comments)
-                    .ThenInclude(c => c.RepliedTo)
-                        .ThenInclude(c => c.Author)
+                    .OrderBy(c => c.CreationTime)
                 .Include(p => p.Comments)
                     .ThenInclude(c => c.Author)
                 .First(p => p.Id == id);
+
+            foreach (var comment in post.Comments)
+            {
+                comment.Replies = GetReplies(comment.Id);
+            }
+
             var postModel = mapper.Map<Post, PostViewModel>(post);
 
             return new JsonResult(postModel);
@@ -84,6 +89,27 @@
             context.SaveChanges();
 
             return Ok();
+        }
+
+        private ICollection<Comment> GetReplies(int id)
+        {
+            List<Comment> replies = new List<Comment>();
+
+            var comment = context.Comments
+                .Include(c => c.Replies)
+                .First(c => c.Id == id);
+
+            if (comment.Replies.Count > 0)
+            {
+                replies.AddRange(comment.Replies);
+
+                foreach (var reply in comment.Replies)
+                {
+                    replies.AddRange(GetReplies(reply.Id));
+                }
+            }
+
+            return replies;
         }
     }
 }
