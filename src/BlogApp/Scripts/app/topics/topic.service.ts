@@ -1,5 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Http, RequestOptions, Headers } from "@angular/http";
+import { Topic } from "./topic";
 
 const baseUrl = "api/topics/";
 
@@ -28,6 +29,11 @@ export class TopicService {
 
     delete(id: number) {
         return this.http.delete(baseUrl + id)
+            .map(res => res.json());
+    }
+
+    edit(topic: Topic) {
+        return this.http.put(baseUrl, topic, this.getRequestOptions())
             .map(res => res.json());
     }
 

@@ -1,5 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Http, RequestOptions, Headers } from "@angular/http";
+import { Post } from "./post";
 
 const baseUrl = "api/posts/";
 
@@ -32,6 +33,10 @@ export class PostService {
         return this.http.delete(baseUrl + id);
     }
 
+    edit(post: Post) {
+        return this.http.put(baseUrl, post, this.getRequestOptions());
+    }
+    
     private getRequestOptions() {
         return new RequestOptions({
             headers: new Headers({

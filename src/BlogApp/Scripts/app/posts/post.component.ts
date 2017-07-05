@@ -7,8 +7,10 @@ import { PostService } from "./post.service";
     template:
     `
         <div *ngIf="post">
-            <h1>{{post.title}}</h1>
+            <h1>{{post.title}} by {{post.authorName}}</h1>
+            <h2>Topic: {{post.topicName}}</h2>
             {{post.content}}
+            <button (click)="edit()">Edit</button>
             <button (click)="remove()">Delete</button>
             <h2>Comments:</h2>
             <comment-list [comments]="post.comments"></comment-list>
@@ -24,11 +26,11 @@ export class PostComponent {
         private activatedRoute: ActivatedRoute,
         private postService: PostService,
         private router: Router
-    ) { }
+    ) {
+        this.id = this.activatedRoute.snapshot.params["id"];
+    }
 
     ngOnInit() {
-        this.id = this.activatedRoute.snapshot.params["id"];
-        
         this.postService.get(this.id)
             .subscribe(post => this.post = post);
     }
@@ -36,5 +38,9 @@ export class PostComponent {
     remove() {
         this.postService.remove(this.id)
             .subscribe(res => this.router.navigate([""]));
+    }
+
+    edit() {
+        this.router.navigate(["posts/" + this.id + "/edit"]);
     }
 }

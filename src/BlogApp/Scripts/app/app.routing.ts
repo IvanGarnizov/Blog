@@ -1,10 +1,12 @@
 ﻿import { ModuleWithProviders } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-import { PostAddComponent } from "./posts/post-add.component";
 import { AboutComponent } from "./about.component";
 import { HomeComponent } from "./home.component";
+import { PostAddComponent } from "./posts/post-add.component";
 import { PostComponent } from "./posts/post.component";
+import { PostEditComponent } from "./posts/post-edit.component";
+import { UserPostsComponent } from "./users/user-posts.component";
 import { TopicComponent } from "./topics/topic.component";
 import { TopicListComponent } from "./topics/topic-list.component";
 
@@ -26,6 +28,10 @@ const appRoutes: Routes = [
         component: PostAddComponent
     },
     {
+        path: "posts/my",
+        component: UserPostsComponent
+    },
+    {
         path: "posts/:id",
         component: PostComponent
     },
@@ -36,6 +42,10 @@ const appRoutes: Routes = [
     {
         path: "topics/:id",
         component: TopicComponent
+    },
+    {
+        path: "posts/:id/edit",
+        component: PostEditComponent
     }
 ];
 

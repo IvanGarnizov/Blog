@@ -122,7 +122,9 @@
 
                 foreach (var postComment in post.Comments)
                 {
-                    postComment.Replies = GetReplies(postComment.Id);
+                    postComment.Replies = GetReplies(postComment.Id)
+                        .OrderBy(r => r.CreationTime)
+                        .ToList();
                 }
 
                 post.Comments = post.Comments
@@ -142,6 +144,38 @@
             }
 
             return new JsonResult(commentModels);
+        }
+
+        [HttpPut]
+        public IActionResult Edit([FromBody]EditCommentBindingModel model)
+        {
+            var comment = context.Comments
+                .First(c => c.Id == model.Id);
+
+            comment.Content = model.Content;
+            context.SaveChanges();
+
+            return new JsonResult(Get(GetPostId(comment.Id)).OrderBy(c => c.CreationTime));
+        }
+
+        private IEnumerable<CommentViewModel> Get(int postId)
+        {
+            var comments = context.Posts
+                .Include(p => p.Comments)
+                    .ThenInclude(c => c.Author)
+                .First(p => p.Id == postId)
+                .Comments;
+
+            foreach (var comment in comments)
+            {
+                comment.Replies = GetReplies(comment.Id)
+                    .OrderBy(c => c.CreationTime)
+                    .ToList();
+            }
+
+            var commentModels = mapper.Map<IEnumerable<Comment>, IEnumerable<CommentViewModel>>(comments);
+
+            return commentModels;
         }
 
         private ICollection<Comment> GetReplies(int id)

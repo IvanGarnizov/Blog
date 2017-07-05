@@ -43,6 +43,7 @@
                     .OrderBy(c => c.CreationTime)
                 .Include(p => p.Comments)
                     .ThenInclude(c => c.Author)
+                .Include(p => p.Topic)
                 .First(p => p.Id == id);
 
             foreach (var comment in post.Comments)
@@ -86,6 +87,20 @@
                 .First(p => p.Id == id);
 
             context.Posts.Remove(post);
+            context.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpPut]
+        public IActionResult Edit([FromBody]EditPostBindingModel model)
+        {
+            var post = context.Posts
+                .First(p => p.Id == model.Id);
+
+            post.Title = model.Title;
+            post.Content = model.Content;
+            post.TopicId = model.TopicId;
             context.SaveChanges();
 
             return Ok();

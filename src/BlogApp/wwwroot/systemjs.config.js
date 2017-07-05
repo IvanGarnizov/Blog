@@ -22,6 +22,7 @@
       'platform-browser',
       'platform-browser-dynamic',
       'upgrade',
+      'forms',
       'router'
     ];
 

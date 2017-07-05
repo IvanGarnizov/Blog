@@ -72,5 +72,17 @@
 
             return new JsonResult(topicModels);
         }
+
+        [HttpPut]
+        public IActionResult Edit([FromBody]EditTopicBindingModel model)
+        {
+            var topic = context.Topics
+                .First(t => t.Id == model.Id);
+
+            topic.Name = model.Name;
+            context.SaveChanges();
+
+            return GetAll();
+        }
     }
 }

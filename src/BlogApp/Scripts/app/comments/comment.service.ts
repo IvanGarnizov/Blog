@@ -1,5 +1,6 @@
 ﻿import { Injectable } from "@angular/core";
 import { Http, RequestOptions, Headers } from "@angular/http";
+import { Comment } from "./comment";
 
 const baseUrl = "api/comments/";
 
@@ -24,6 +25,11 @@ export class CommentService {
 
     remove(id: number) {
         return this.http.delete(baseUrl + id)
+            .map(res => res.json());
+    }
+
+    edit(comment: Comment) {
+        return this.http.put(baseUrl, comment, this.getRequestOptions())
             .map(res => res.json());
     }
 

@@ -8,17 +8,24 @@ import { Router } from "@angular/router";
     `
         <ul>
             <li *ngFor="let topic of topics">
-                <div (click)="select(topic.id)">{{topic.name}}</div>
-                <button (click)="delete(topic.id)">Delete</button>
+                <div *ngIf="topicEdit && topicEdit.id == topic.id">
+                    <input type="text" [(ngModel)]="topicEdit.name" />
+                    <button (click)="edit()">Edit</button>
+                </div>
+                <div *ngIf="!topicEdit || (topicEdit && topicEdit.id != topic.id)">
+                    <div (click)="select(topic.id)">{{topic.name}}</div>
+                    <button (click)="showEditBox(topic)">Edit</button>
+                    <button (click)="delete(topic.id)">Delete</button>
+                </div>
             </li>
         </ul>
-        <input type="text" #name placeholder="Name..." />
-        <button (click)="add(name.value); name.value = '';">Add topic</button>
+        <topic-add (onAdd)="onAdd($event)"></topic-add>
     `
 })
 
 export class TopicListComponent {
-    topics: Topic[]
+    topics: Topic[];
+    topicEdit: Topic;
 
     constructor(private topicService: TopicService, private router: Router) { }
 
@@ -31,13 +38,21 @@ export class TopicListComponent {
         this.router.navigate(["topics", id]);
     }
 
-    add(name: string) {
-        this.topicService.add(name)
-            .subscribe(topics => this.topics = topics);
-    }
-
     delete(id: number) {
         this.topicService.delete(id)
             .subscribe(topics => this.topics = topics);
+    }
+
+    onAdd(topics: Topic[]) {
+        this.topics = topics;
+    }
+
+    showEditBox(topic: Topic) {
+        this.topicEdit = topic;
+    }
+
+    edit() {
+        this.topicService.edit(this.topicEdit)
+            .subscribe(topics => { this.topics = topics; this.topicEdit = null; });
     }
 }

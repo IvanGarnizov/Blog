@@ -15,6 +15,10 @@
 
         public string AuthorName { get; set; }
 
+        public int TopicId { get; set; }
+
+        public string TopicName { get; set; }
+
         public DateTime CreationTime { get; set; }
 
         public DateTime LastModified { get; set; }

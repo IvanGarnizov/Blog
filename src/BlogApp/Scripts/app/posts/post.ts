@@ -5,6 +5,7 @@
         public Content: string,
         public ViewsCount: number,
         public CreationTime: Date,
-        public LastModified: Date
+        public LastModified: Date,
+        public TopicId: number
     ) { }
 }
