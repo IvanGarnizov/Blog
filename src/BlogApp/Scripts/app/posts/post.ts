@@ -4,8 +4,8 @@
         public Title: string,
         public Content: string,
         public ViewsCount: number,
+        public TopicId: number,
         public CreationTime: Date,
-        public LastModified: Date,
-        public TopicId: number
+        public LastModified: Date
     ) { }
 }

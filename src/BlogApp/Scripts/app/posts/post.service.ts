@@ -18,18 +18,18 @@ export class PostService {
             .map(res => res.json());
     }
 
-    add(title: string, content: string, topicName: number) {
+    add(title: string, content: string, topicId: number) {
         var post = {
             Title: title,
             Content: content,
-            TopicName: topicName
+            TopicId: topicId
         };
 
         return this.http.post(baseUrl, post, this.getRequestOptions())
             .map(res => res.json());
     }
 
-    remove(id: number) {
+    delete(id: number) {
         return this.http.delete(baseUrl + id);
     }
 

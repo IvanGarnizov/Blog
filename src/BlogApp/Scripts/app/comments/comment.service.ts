@@ -8,6 +8,11 @@ const baseUrl = "api/comments/";
 export class CommentService {
     constructor(private http: Http) { }
 
+    get(postId: number) {
+        return this.http.get(baseUrl + postId)
+            .map(res => res.json());
+    }
+
     add(id: number, content: string, isReply: boolean) {
         var comment: any = {
             Content: content

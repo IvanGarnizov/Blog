@@ -13,7 +13,7 @@ import { Router } from "@angular/router";
                     <button (click)="edit()">Edit</button>
                 </div>
                 <div *ngIf="!topicEdit || (topicEdit && topicEdit.id != topic.id)">
-                    <div (click)="select(topic.id)">{{topic.name}}</div>
+                    <div (click)="sendToTopic(topic.id)">{{topic.name}}</div>
                     <button (click)="showEditBox(topic)">Edit</button>
                     <button (click)="delete(topic.id)">Delete</button>
                 </div>
@@ -34,7 +34,7 @@ export class TopicListComponent {
             .subscribe(topics => this.topics = topics);
     }
 
-    select(id: number) {
+    sendToTopic(id: number) {
         this.router.navigate(["topics", id]);
     }
 

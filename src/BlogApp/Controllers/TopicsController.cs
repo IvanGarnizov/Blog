@@ -53,24 +53,23 @@
             });
             context.SaveChanges();
 
-            var topicModels = mapper.Map<IEnumerable<Topic>, IEnumerable<TopicListViewModel>>(topics);
-
-            return new JsonResult(topicModels);
+            return GetAll();
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             var topic = context.Topics
+                .Include(t => t.Posts)
+                    .ThenInclude(p => p.Comments)
                 .First(t => t.Id == id);
+
+            Utility.DeletePosts(topic.Posts, context);
 
             context.Topics.Remove(topic);
             context.SaveChanges();
 
-            var topics = context.Topics;
-            var topicModels = mapper.Map<IEnumerable<Topic>, IEnumerable<TopicListViewModel>>(topics);
-
-            return new JsonResult(topicModels);
+            return GetAll();
         }
 
         [HttpPut]

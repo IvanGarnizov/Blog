@@ -38,19 +38,9 @@
         public IActionResult Get(int id)
         {
             var post = context.Posts
-                .Include(p => p.Author)
-                .Include(p => p.Comments)
-                    .OrderBy(c => c.CreationTime)
-                .Include(p => p.Comments)
-                    .ThenInclude(c => c.Author)
                 .Include(p => p.Topic)
+                .Include(p => p.Author)
                 .First(p => p.Id == id);
-
-            foreach (var comment in post.Comments)
-            {
-                comment.Replies = GetReplies(comment.Id);
-            }
-
             var postModel = mapper.Map<Post, PostViewModel>(post);
 
             return new JsonResult(postModel);
@@ -59,11 +49,6 @@
         [HttpPost]
         public IActionResult Add([FromBody]AddPostBindingModel model)
         {
-            if (model.TopicId == 0)
-            {
-                model.TopicId = 1;
-            }
-
             var newPost = new Post()
             {
                 Title = model.Title,
@@ -84,7 +69,10 @@
         public IActionResult Delete(int id)
         {
             var post = context.Posts
+                .Include(p => p.Comments)
                 .First(p => p.Id == id);
+            
+            Utility.DeleteComments(post.Comments, context);
 
             context.Posts.Remove(post);
             context.SaveChanges();
@@ -104,27 +92,6 @@
             context.SaveChanges();
 
             return Ok();
-        }
-
-        private ICollection<Comment> GetReplies(int id)
-        {
-            List<Comment> replies = new List<Comment>();
-
-            var comment = context.Comments
-                .Include(c => c.Replies)
-                .First(c => c.Id == id);
-
-            if (comment.Replies.Count > 0)
-            {
-                replies.AddRange(comment.Replies);
-
-                foreach (var reply in comment.Replies)
-                {
-                    replies.AddRange(GetReplies(reply.Id));
-                }
-            }
-
-            return replies;
         }
     }
 }

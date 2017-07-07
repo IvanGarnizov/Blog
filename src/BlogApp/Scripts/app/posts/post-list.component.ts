@@ -7,7 +7,7 @@ import { Router } from "@angular/router";
     template:
     `
         <ul>
-            <li *ngFor="let post of posts" (click)="select(post.id)">{{post.title}}</li>
+            <li *ngFor="let post of posts" (click)="sendToPost(post.id)">{{post.title}}</li>
         </ul>
     `
 })
@@ -17,7 +17,7 @@ export class PostListComponent {
 
     constructor(private router: Router) { }
 
-    select(id: number) {
+    sendToPost(id: number) {
         this.router.navigate(["posts", id]);
     }
 }

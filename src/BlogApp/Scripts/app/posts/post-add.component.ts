@@ -11,16 +11,18 @@ import { Router } from "@angular/router";
         <textarea #content></textarea>
         <label>Topic:</label>
         <topic-select (notify)="onNotify($event)"></topic-select>
-        <button (click)="addPost(title.value, content.value)">Add post</button>
+        <button (click)="add(title.value, content.value)">Add post</button>
     `
 })
 
 export class PostAddComponent {
     topicId: number;
 
-    constructor(private postService: PostService, private router: Router) { }
+    constructor(private postService: PostService, private router: Router) {
+        this.topicId = 1
+    }
 
-    addPost(title: string, content: string) {
+    add(title: string, content: string) {
         this.postService.add(title, content, this.topicId)
             .subscribe(id => this.router.navigate(["posts", id]));
     }

@@ -2,7 +2,6 @@
 import { Post } from "./post";
 import { ActivatedRoute, Router } from "@angular/router";
 import { PostService } from "./post.service";
-import { FormsModule } from "@angular/forms";
 
 @Component({
     template:
@@ -28,7 +27,7 @@ export class PostEditComponent {
 
     ngOnInit() {
         this.postService.get(this.id)
-            .subscribe(post => this.post = post);
+            .subscribe(post => { this.post = post; this.post.TopicId = 1; });
     }
 
     topicChosen(topicId: number) {
@@ -37,6 +36,6 @@ export class PostEditComponent {
 
     edit() {
         this.postService.edit(this.post)
-            .subscribe(id => this.router.navigate(["posts", this.id]));
+            .subscribe(() => this.router.navigate(["posts", this.id]));
     }
 }
