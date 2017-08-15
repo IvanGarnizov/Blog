@@ -11,6 +11,7 @@
     using Data;
     using Data.Models;
 
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
 
@@ -18,8 +19,8 @@
 
     public class CommentsController : BaseController
     {
-        public CommentsController(ApplicationDbContext context, IMapper mapper)
-            : base(context, mapper)
+        public CommentsController(ApplicationDbContext context, IMapper mapper, SignInManager<User> signInManager, UserManager<User> userManager)
+            : base(context, mapper, signInManager, userManager)
         {
         }
 
@@ -56,7 +57,7 @@
                 Content = model.Content,
                 CreationTime = DateTime.Now,
                 LastModified = DateTime.Now,
-                AuthorId = context.Users.First(u => u.UserName == "admin").Id
+                AuthorId = CurrentUserId()
             };
 
             if (model.CommentId != null)

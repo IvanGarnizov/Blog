@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using BlogApp.Data.Models;
 using AutoMapper;
+using BlogApp.Classes;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BlogApp
 {
@@ -48,8 +47,8 @@ namespace BlogApp
                 config.Password.RequireDigit = false;
                 config.Password.RequireUppercase = false;
             })
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
 
             // Add ApplicationDbContext.
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -82,6 +81,25 @@ namespace BlogApp
                     context.Context.Response.Headers["Cache-Control"] = Configuration["StaticFiles:Headers:Cache-Control"];
                     context.Context.Response.Headers["Pragma"] = Configuration["StaticFiles:Headers:Pragma"];
                     context.Context.Response.Headers["Expires"] = Configuration["StaticFiles:Headers:Expires"];
+                }
+            });
+
+            // Add a custom Jwt Provider to generate Tokens
+            app.UseJwtProvider();
+
+            // Add the Jwt Bearer Header Authentication to validate Tokens
+            app.UseJwtBearerAuthentication(new JwtBearerOptions()
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                RequireHttpsMetadata = false,
+                TokenValidationParameters = new TokenValidationParameters()
+                {
+                    IssuerSigningKey = JwtProvider.securityKey,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = JwtProvider.issuer,
+                    ValidateIssuer = false,
+                    ValidateAudience = false
                 }
             });
 

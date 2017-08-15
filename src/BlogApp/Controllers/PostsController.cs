@@ -11,6 +11,8 @@
     using Data;
     using Data.Models;
 
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
 
@@ -18,8 +20,8 @@
 
     public class PostsController : BaseController
     {
-        public PostsController(ApplicationDbContext context, IMapper mapper)
-            : base(context, mapper)
+        public PostsController(ApplicationDbContext context, IMapper mapper, SignInManager<User> signInManager, UserManager<User> userManager)
+            : base(context, mapper, signInManager, userManager)
         {
         }
 
@@ -46,7 +48,19 @@
             return new JsonResult(postModel);
         }
 
+        [HttpGet("GetForCurrentUser")]
+        [Authorize]
+        public IActionResult GetForCurrentUser()
+        {
+            var posts = context.Posts
+                .Where(p => p.Author.Id == CurrentUserId());
+            var postModels = mapper.Map<IEnumerable<Post>, IEnumerable<PostListViewModel>>(posts);
+
+            return new JsonResult(postModels);
+        }
+
         [HttpPost]
+        [Authorize]
         public IActionResult Add([FromBody]AddPostBindingModel model)
         {
             var newPost = new Post()
@@ -55,7 +69,7 @@
                 Content = model.Content,
                 CreationTime = DateTime.Now,
                 LastModified = DateTime.Now,
-                AuthorId = context.Users.First(u => u.UserName == "admin").Id,
+                AuthorId = CurrentUserId(),
                 TopicId = model.TopicId
             };
 
@@ -66,6 +80,7 @@
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public IActionResult Delete(int id)
         {
             var post = context.Posts
@@ -81,6 +96,7 @@
         }
 
         [HttpPut]
+        [Authorize]
         public IActionResult Edit([FromBody]EditPostBindingModel model)
         {
             var post = context.Posts

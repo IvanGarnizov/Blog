@@ -1,12 +1,13 @@
 ﻿import { Injectable } from "@angular/core";
 import { Http, RequestOptions, Headers } from "@angular/http";
 import { Post } from "./post";
+import { AuthHttp } from "./../auth.http";
 
 const baseUrl = "api/posts/";
 
 @Injectable()
 export class PostService {
-    constructor(private http: Http) { }
+    constructor(private http: AuthHttp) { }
 
     getMostViewed() {
         return this.http.get(baseUrl + "MostViewed")
@@ -15,6 +16,11 @@ export class PostService {
 
     get(id: number) {
         return this.http.get(baseUrl + id)
+            .map(res => res.json());
+    }
+
+    getForCurrentUser() {
+        return this.http.get(baseUrl + "GetForCurrentUser")
             .map(res => res.json());
     }
 

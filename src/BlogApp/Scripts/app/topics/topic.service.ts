@@ -1,12 +1,13 @@
 ﻿import { Injectable } from "@angular/core";
 import { Http, RequestOptions, Headers } from "@angular/http";
 import { Topic } from "./topic";
+import { AuthHttp } from "./../auth.http";
 
 const baseUrl = "api/topics/";
 
 @Injectable()
 export class TopicService {
-    constructor(private http: Http) { }
+    constructor(private http: AuthHttp) { }
 
     getAll() {
         return this.http.get(baseUrl)

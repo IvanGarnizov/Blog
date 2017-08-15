@@ -1,12 +1,13 @@
 ﻿import { Injectable } from "@angular/core";
 import { Http, RequestOptions, Headers } from "@angular/http";
 import { Comment } from "./comment";
+import { AuthHttp } from "./../auth.http"
 
 const baseUrl = "api/comments/";
 
 @Injectable()
 export class CommentService {
-    constructor(private http: Http) { }
+    constructor(private http: AuthHttp) { }
 
     get(postId: number) {
         return this.http.get(baseUrl + postId)

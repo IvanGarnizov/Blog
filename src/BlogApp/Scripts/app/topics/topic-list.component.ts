@@ -2,6 +2,7 @@
 import { Topic } from "./topic";
 import { TopicService } from "./topic.service";
 import { Router } from "@angular/router";
+import { AuthService } from "./../auth.service";
 
 @Component({
     template:
@@ -14,24 +15,27 @@ import { Router } from "@angular/router";
                 </div>
                 <div *ngIf="!topicEdit || (topicEdit && topicEdit.id != topic.id)">
                     <div (click)="sendToTopic(topic.id)">{{topic.name}}</div>
-                    <button (click)="showEditBox(topic)">Edit</button>
-                    <button (click)="delete(topic.id)">Delete</button>
+                    <button *ngIf="isAdmin" (click)="showEditBox(topic)">Edit</button>
+                    <button *ngIf="isAdmin" (click)="delete(topic.id)">Delete</button>
                 </div>
             </li>
         </ul>
-        <topic-add (onAdd)="onAdd($event)"></topic-add>
+        <topic-add *ngIf="isAdmin" (onAdd)="onAdd($event)"></topic-add>
     `
 })
 
 export class TopicListComponent {
     topics: Topic[];
     topicEdit: Topic;
+    isAdmin: boolean;
 
-    constructor(private topicService: TopicService, private router: Router) { }
+    constructor(private topicService: TopicService, private router: Router, private authService: AuthService) { }
 
     ngOnInit() {
         this.topicService.getAll()
             .subscribe(topics => this.topics = topics);
+        this.authService.isAdmin()
+            .subscribe(isAdmin => this.isAdmin = isAdmin);
     }
 
     sendToTopic(id: number) {

@@ -2,6 +2,7 @@
 import { ActivatedRoute, Router } from "@angular/router";
 import { Post } from "./post";
 import { PostService } from "./post.service";
+import { AuthService } from "./../auth.service"
 
 @Component({
     template:
@@ -12,8 +13,8 @@ import { PostService } from "./post.service";
             Viewed {{post.viewsCount}} times
             <h2>Topic: {{post.topicName}}</h2>
             {{post.content}}
-            <button (click)="sendToEdit()">Edit</button>
-            <button (click)="delete()">Delete</button>
+            <button *ngIf="userId == post.authorId" (click)="sendToEdit()">Edit</button>
+            <button *ngIf="userId == post.authorId" (click)="delete()">Delete</button>
             <h2>Comments:</h2>
             <comment-list></comment-list>
         </div>
@@ -23,9 +24,12 @@ import { PostService } from "./post.service";
 export class PostComponent {
     post: Post;
     id: number;
+    userId: number;
 
-    constructor(private activatedRoute: ActivatedRoute, private postService: PostService, private router: Router) {
+    constructor(private activatedRoute: ActivatedRoute, private postService: PostService, private router: Router, private authService: AuthService) {
         this.id = this.activatedRoute.snapshot.params["id"];
+        this.authService.getUserId()
+            .subscribe(userId => this.userId = userId);
     }
 
     ngOnInit() {

@@ -10,6 +10,7 @@
     using Data;
     using Data.Models;
 
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
 
@@ -17,8 +18,8 @@
 
     public class TopicsController : BaseController
     {
-        public TopicsController(ApplicationDbContext context, IMapper mapper)
-            : base(context, mapper)
+        public TopicsController(ApplicationDbContext context, IMapper mapper, SignInManager<User> signInManager, UserManager<User> userManager)
+            : base(context, mapper, signInManager, userManager)
         {
         }
 
@@ -45,9 +46,7 @@
         [HttpPost]
         public IActionResult Add([FromBody]AddTopicBindingModel model)
         {
-            var topics = context.Topics;
-
-            topics.Add(new Topic()
+            context.Topics.Add(new Topic()
             {
                 Name = model.Name
             });

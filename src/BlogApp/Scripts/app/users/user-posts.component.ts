@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { UserService } from "./user.service";
+import { PostService } from "./../posts/post.service";
 import { Post } from "./../posts/post";
 
 @Component({
@@ -12,10 +12,10 @@ import { Post } from "./../posts/post";
 export class UserPostsComponent {
     posts: Post[]
 
-    constructor(private userService: UserService) { }
+    constructor(private postService: PostService) { }
 
     ngOnInit() {
-        this.userService.getPosts()
+        this.postService.getForCurrentUser()
             .subscribe(posts => this.posts = posts);
     }
 }
