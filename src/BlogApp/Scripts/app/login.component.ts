@@ -7,19 +7,13 @@ import { AuthService } from "./auth.service";
     selector: "login",
     template:
     `
-        <h2>Login</h2>
+        <h1>Login</h1>
         <div *ngIf="loginError">
             <strong>Warning:</strong> Username or Password mismatch
         </div>
         <form [formGroup]="loginForm" (submit)="performLogin($event)">
             <input formControlName="username" type="text" placeholder="Your username or e-mail address" required autofocus />
             <input formControlName="password" type="password" placeholder="Your password" required />
-            <div>
-                <label>
-                    <input type="checkbox" value="remember-me" />
-                    Remember me
-                </label>
-            </div>
             <button type="submit">Sign in</button>
         </form>
     `

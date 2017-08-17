@@ -7,16 +7,19 @@ import { AuthService } from "./../auth.service";
 @Component({
     template:
     `
-        <ul>
+        <h1>Choose a topic!</h1>
+        <ul class="topic-list">
             <li *ngFor="let topic of topics">
                 <div *ngIf="topicEdit && topicEdit.id == topic.id">
                     <input type="text" [(ngModel)]="topicEdit.name" />
                     <button (click)="edit()">Edit</button>
                 </div>
                 <div *ngIf="!topicEdit || (topicEdit && topicEdit.id != topic.id)">
-                    <div (click)="sendToTopic(topic.id)">{{topic.name}}</div>
-                    <button *ngIf="isAdmin" (click)="showEditBox(topic)">Edit</button>
-                    <button *ngIf="isAdmin" (click)="delete(topic.id)">Delete</button>
+                    <a (click)="sendToTopic(topic.id)">{{topic.name}}</a>
+                    <div class="buttons">
+                        <button *ngIf="isAdmin" (click)="showEditBox(topic)">Edit</button>
+                        <button *ngIf="isAdmin" (click)="delete(topic.id)">Delete</button>
+                    </div>
                 </div>
             </li>
         </ul>
@@ -34,8 +37,11 @@ export class TopicListComponent {
     ngOnInit() {
         this.topicService.getAll()
             .subscribe(topics => this.topics = topics);
-        this.authService.isAdmin()
-            .subscribe(isAdmin => this.isAdmin = isAdmin);
+
+        if (this.authService.isLoggedIn()) {
+            this.authService.isAdmin()
+                .subscribe(isAdmin => this.isAdmin = isAdmin);
+        }
     }
 
     sendToTopic(id: number) {

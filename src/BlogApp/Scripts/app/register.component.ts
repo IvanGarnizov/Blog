@@ -5,14 +5,14 @@ import { Router } from "@angular/router";
 
 @Component({
     template: `
+        <h1>Register</h1>
         <div *ngIf="errorMessage">{{errorMessage}}</div>
         <form [formGroup]="userForm" (submit)="onSubmit()">
             <input type="text" formControlName="username" placeholder="Username..." />
             <input type="text" formControlName="email" placeholder="Email..." />
             <input type="password" formControlName="password" placeholder="Password..." />
             <input type="password" formControlName="passwordConfirm" placeholder="Confirm Password..." />
-            <input type="submit" [disabled]="!userForm.valid" />
-            <div>{{userForm.valid}}</div>
+            <input type="submit" [disabled]="!userForm.valid" value="Register" />
         </form>
     `
 })

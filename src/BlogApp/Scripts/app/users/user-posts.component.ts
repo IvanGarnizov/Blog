@@ -5,6 +5,7 @@ import { Post } from "./../posts/post";
 @Component({
     template:
     `
+        <h1>Your posts</h1>
         <post-list [posts]="posts"></post-list>
     `
 })

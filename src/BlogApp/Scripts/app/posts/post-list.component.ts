@@ -6,8 +6,10 @@ import { Router } from "@angular/router";
     selector: "post-list",
     template:
     `
-        <ul>
-            <li *ngFor="let post of posts" (click)="sendToPost(post.id)">{{post.title}}</li>
+        <ul class="post-list">
+            <li *ngFor="let post of posts">
+                <a (click)="sendToPost(post.id)">{{post.title}}</a>
+            </li>
         </ul>
     `
 })

@@ -6,6 +6,8 @@ import { Post } from "./posts/post";
     selector: "home",
     template:
     `
+        <h1>Welcome to Blog!</h1>
+        <h2>Top 5 most popular posts!</h2>
         <post-list [posts]="posts"></post-list>
     `
 })

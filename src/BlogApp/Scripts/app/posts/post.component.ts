@@ -13,8 +13,10 @@ import { AuthService } from "./../auth.service"
             Viewed {{post.viewsCount}} times
             <h2>Topic: {{post.topicName}}</h2>
             {{post.content}}
-            <button *ngIf="userId == post.authorId" (click)="sendToEdit()">Edit</button>
-            <button *ngIf="userId == post.authorId" (click)="delete()">Delete</button>
+            <div class="buttons">
+                <button *ngIf="userId == post.authorId || isAdmin" (click)="sendToEdit()">Edit</button>
+                <button *ngIf="userId == post.authorId || isAdmin" (click)="delete()">Delete</button>
+            </div>
             <h2>Comments:</h2>
             <comment-list></comment-list>
         </div>
@@ -25,11 +27,17 @@ export class PostComponent {
     post: Post;
     id: number;
     userId: number;
+    isAdmin: boolean;
 
     constructor(private activatedRoute: ActivatedRoute, private postService: PostService, private router: Router, private authService: AuthService) {
         this.id = this.activatedRoute.snapshot.params["id"];
-        this.authService.getUserId()
-            .subscribe(userId => this.userId = userId);
+
+        if (this.authService.isLoggedIn()) {
+            this.authService.getUserId()
+                .subscribe(userId => this.userId = userId);
+            this.authService.isAdmin()
+                .subscribe(isAdmin => this.isAdmin = isAdmin);
+        }
     }
 
     ngOnInit() {

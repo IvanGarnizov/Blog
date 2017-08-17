@@ -15,6 +15,8 @@
 
         public bool IsReply { get; set; }
 
+        public string AuthorId { get; set; }
+
         public DateTime CreationTime { get; set; }
 
         public DateTime LastModified { get; set; }

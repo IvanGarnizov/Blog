@@ -1,7 +1,6 @@
 ﻿import { ModuleWithProviders } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-import { AboutComponent } from "./about.component";
 import { HomeComponent } from "./home.component";
 import { LoginComponent } from "./login.component";
 import { PostAddComponent } from "./posts/post-add.component";
@@ -20,10 +19,6 @@ const appRoutes: Routes = [
     {
         path: "home",
         redirectTo: ""
-    },
-    {
-        path: "about",
-        component: AboutComponent
     },
     {
         path: "login",

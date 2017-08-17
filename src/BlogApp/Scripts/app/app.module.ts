@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import "rxjs/Rx";
 
-import { AboutComponent } from "./about.component";
 import { AppComponent } from "./app.component";
 import { CommentAddComponent } from "./comments/comment-add.component";
 import { CommentListComponent } from "./comments/comment-list.component";
@@ -35,7 +34,6 @@ import { TopicService } from "./topics/topic.service";
 @NgModule({
     // directives, components, and pipes
     declarations: [
-        AboutComponent,
         AppComponent,
         CommentAddComponent,
         CommentListComponent,

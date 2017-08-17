@@ -43,6 +43,9 @@
                 .Include(p => p.Topic)
                 .Include(p => p.Author)
                 .First(p => p.Id == id);
+
+            post.ViewsCount++;
+
             var postModel = mapper.Map<Post, PostViewModel>(post);
 
             return new JsonResult(postModel);

@@ -2,6 +2,7 @@
 import { Comment } from "./comment";
 import { ActivatedRoute } from "@angular/router";
 import { CommentService } from "./comment.service";
+import { AuthService } from "./../auth.service";
 
 @Component({
     selector: "comment-list",
@@ -18,13 +19,15 @@ import { CommentService } from "./comment.service";
                     </div>
                     <div *ngIf="!commentEdit || (commentEdit && commentEdit.id != comment.id)">
                         {{comment.content}}
-                        <button (click)="showEditBox(comment)">Edit</button>
-                        <button (click)="remove(comment.id)">Delete</button>
-                        <button (click)="showReplyBox(comment.id)">Reply</button>
+                        <div class="buttons">
+                            <button *ngIf="comment.authorId == userId || isAdmin" (click)="showEditBox(comment)">Edit</button>
+                            <button *ngIf="comment.authorId == userId || isAdmin" (click)="remove(comment.id)">Delete</button>
+                            <button *ngIf="authService.isLoggedIn()" (click)="showReplyBox(comment.id)">Reply</button>
+                        </div>
                         <comment-reply *ngIf="comment.id == replyToCommentId" [commentId]="comment.id" (onReply)="onReply($event)"></comment-reply>
                     </div>
                     <ul>
-                        <li *ngFor="let reply of comment.replies">
+                        <li class="reply" *ngFor="let reply of comment.replies">
                             <h3>{{reply.authorName}} said to {{reply.repliedToAuthorName}}:</h3>
                             <div *ngIf="commentEdit && commentEdit.id == reply.id">
                                 <textarea [(ngModel)]="commentEdit.content"></textarea>
@@ -32,16 +35,18 @@ import { CommentService } from "./comment.service";
                             </div>
                             <div *ngIf="!commentEdit || (commentEdit && commentEdit.id != reply.id)">
                                 {{reply.content}}
-                                <button (click)="showEditBox(reply)">Edit</button>
-                                <button (click)="remove(reply.id)">Delete</button>
-                                <button (click)="showReplyBox(reply.id)">Reply</button>
+                                <div class="buttons">
+                                    <button *ngIf="reply.authorId == userId || isAdmin" (click)="showEditBox(reply)">Edit</button>
+                                    <button *ngIf="reply.authorId == userId || isAdmin" (click)="remove(reply.id)">Delete</button>
+                                    <button *ngIf="authService.isLoggedIn()" (click)="showReplyBox(reply.id)">Reply</button>
+                                </div>
                                 <comment-reply *ngIf="reply.id == replyToCommentId" [commentId]="reply.id" (onReply)="onReply($event)"></comment-reply>
                             </div>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <comment-add [postId]="postId" (onComment)="onComment($event)"></comment-add>
+            <comment-add *ngIf="authService.isLoggedIn()" [postId]="postId" (onComment)="onComment($event)"></comment-add>
         </div>
     `
 })
@@ -51,14 +56,23 @@ export class CommentListComponent {
     replyToCommentId: number;
     postId: number;
     commentEdit: Comment;
+    userId: number;
+    isAdmin: boolean;
 
-    constructor(private activatedRoute: ActivatedRoute, private commentService: CommentService) {
+    constructor(private activatedRoute: ActivatedRoute, private commentService: CommentService, private authService: AuthService) {
         this.postId = this.activatedRoute.snapshot.params["id"];
     }
 
     ngOnInit() {
         this.commentService.get(this.postId)
             .subscribe(comments => this.comments = comments);
+
+        if (this.authService.isLoggedIn()) {
+            this.authService.getUserId()
+                .subscribe(userId => this.userId = userId);
+            this.authService.isAdmin()
+                .subscribe(isAdmin => this.isAdmin = isAdmin);
+        }
     }
 
     remove(id: number) {

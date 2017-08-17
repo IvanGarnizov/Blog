@@ -6,14 +6,17 @@ import { Router } from "@angular/router";
     selector: "blog",
     template:
     `
-        <a [routerLink]="['']">Home</a>
-        <a [routerLink]="['about']">About</a>
-        <a [routerLink]="['topics']">Topics</a>
-        <a *ngIf="authService.isLoggedIn()" [routerLink]="['posts/add']">Add post</a>
-        <a *ngIf="authService.isLoggedIn()" [routerLink]="['posts/my']">My posts</a>
-        <a *ngIf="!authService.isLoggedIn()" [routerLink]="['login']">Login</a>
-        <a *ngIf="!authService.isLoggedIn()" [routerLink]="['register']">Register</a>
-        <a *ngIf="authService.isLoggedIn()" href="javascript:void(0)" (click)="logout()">Logout</a>
+        <nav class="nav">
+            <ul class="menu">
+                <li [routerLink]="['']">Home</li>
+                <li [routerLink]="['topics']">Topics</li>
+                <li *ngIf="authService.isLoggedIn()" [routerLink]="['posts/add']">Add post</li>
+                <li *ngIf="authService.isLoggedIn()" [routerLink]="['posts/my']">My posts</li>
+                <li *ngIf="!authService.isLoggedIn()" class="right" [routerLink]="['login']">Login</li>
+                <li *ngIf="!authService.isLoggedIn()" class="right" [routerLink]="['register']">Register</li>
+                <li *ngIf="authService.isLoggedIn()" class="right" (click)="logout()">Logout</li>
+            </ul>
+        </nav>
         <div class="main-container">
             <router-outlet></router-outlet>
         </div>

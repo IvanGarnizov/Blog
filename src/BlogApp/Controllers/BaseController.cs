@@ -31,11 +31,6 @@
 
         protected string CurrentUserId()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                throw new NotSupportedException();
-            }
-
             return User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
 
